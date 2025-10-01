@@ -5,15 +5,16 @@
 
 **StudySync** is a collaborative **Group Study Scheduler** designed to help students and teams plan, manage, and track study sessions effectively.  
 It simplifies scheduling by allowing users to:
+
+Whether you are preparing for exams, coding competitions, or collaborative projects, **StudySync** keeps everyone on the same page.
+
+## 🌟 Features
+
 - Create study groups
 - Schedule study sessions
 - Send reminders and notifications
 - Track attendance and progress
 - Get analytics on study hours and participation
-
-Whether you are preparing for exams, coding competitions, or collaborative projects, **StudySync** keeps everyone on the same page.
-
----
 
 ## 🏗 Project Architecture
 
@@ -29,6 +30,11 @@ Refer to the diagram above for a detailed view of the system design.
 ---
 
 ## 🚀 Getting Started
+
+## 🛠 How to Contribute
+
+We welcome all contributions – code or non-code! Here’s how you can help:
+
 
 ### 1️⃣ Clone the Repository
 ```bash
