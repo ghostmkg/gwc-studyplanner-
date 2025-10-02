@@ -29,6 +29,21 @@ Refer to the diagram above for a detailed view of the system design.
 
 ---
 
+## 📂 Project Structure
+
+```plaintext
+studysync/
+│
+├── backend/         # For APIs and server code
+├── frontend/        # For web UI
+├── docs/            # For documentation and guides
+├── tests/           # For unit and integration tests
+└── README.md
+└── LICENSE
+```
+
+---
+
 ## 🚀 Getting Started
 
 ## 🛠 How to Contribute
