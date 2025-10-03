@@ -1,0 +1,19 @@
+#python cache files
+__pycache__/
+*.pyc
+
+#local environment variable
+.env
+
+#virtual environment folders
+venv/
+env/
+
+#SQLite database files (next step)
+*.sqlite3
+
+#log files
+*.log
+
+#editor settings
+.vscode/
