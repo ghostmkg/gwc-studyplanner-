@@ -1,34 +1,32 @@
 from sqlalchemy.orm import Session
 import models, schemas
 
-def create_group(db: Session, group: schemas.StudyGroupCreate):
-    db_group = models.StudyGroup(name=group.name)
-    db.add(db_group)
+# Reusable helper to add & refresh
+def save_and_refresh(db: Session, instance):
+    db.add(instance)
     db.commit()
-    db.refresh(db_group)
-    return db_group
+    db.refresh(instance)
+    return instance
+
+def create_group(db: Session, group: schemas.StudyGroupCreate):
+    return save_and_refresh(db, models.StudyGroup(name=group.name))
 
 def create_user(db: Session, user: schemas.UserCreate):
-    db_user = models.User(**user.dict())
-    db.add(db_user)
-    db.commit()
-    db.refresh(db_user)
-    return db_user
+    return save_and_refresh(db, models.User(**user.dict()))
 
 def create_session(db: Session, session: schemas.StudySessionCreate):
-    db_session = models.StudySession(**session.dict())
-    db.add(db_session)
-    db.commit()
-    db.refresh(db_session)
-    return db_session
+    return save_and_refresh(db, models.StudySession(**session.dict()))
 
 def mark_attendance(db: Session, attendance: schemas.AttendanceUpdate):
-    db_record = db.query(models.Attendance).filter_by(user_id=attendance.user_id, session_id=attendance.session_id).first()
+    db_record = (
+        db.query(models.Attendance)
+        .filter_by(user_id=attendance.user_id, session_id=attendance.session_id)
+        .first()
+    )
+
     if db_record:
         db_record.present = attendance.present
     else:
         db_record = models.Attendance(**attendance.dict())
-        db.add(db_record)
-    db.commit()
-    db.refresh(db_record)
-    return db_record
+
+    return save_and_refresh(db, db_record)
