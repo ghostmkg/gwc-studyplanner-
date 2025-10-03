@@ -39,7 +39,7 @@ cd studysync
 ### Use the Repo
 ```bash
 pip install -r requirements.txt
-python main.py
+python app/main.py
 docker build -t studysync .
 docker run -p 8000:8000 studysync
 ```
