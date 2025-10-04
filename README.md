@@ -1,66 +1,99 @@
-# StudySync - Group Study Scheduler
+# 📚 StudySync – Group Study Scheduler
 
+StudySync is a collaborative **Group Study Scheduler** built to help students and teams plan, manage, and track study sessions effectively.
 
-## 📌 Overview
+With StudySync, you can:
+✅ Create study groups
+✅ Schedule sessions with reminders
+✅ Send notifications across platforms
+✅ Track attendance & progress
+✅ Get analytics on study hours and participation
 
-**StudySync** is a collaborative **Group Study Scheduler** designed to help students and teams plan, manage, and track study sessions effectively.  
-It simplifies scheduling by allowing users to:
-- Create study groups
-- Schedule study sessions
-- Send reminders and notifications
-- Track attendance and progress
-- Get analytics on study hours and participation
-
-Whether you are preparing for exams, coding competitions, or collaborative projects, **StudySync** keeps everyone on the same page.
+Whether it’s for exam prep, coding competitions, or team projects, StudySync keeps everyone aligned.
 
 ---
 
 ## 🏗 Project Architecture
 
-The architecture follows a **modular and lightweight design** to ensure scalability and extensibility.  
-Key components:
-- **Core Components** – Session Management, Notification Engine, and Storage
-- **API & UI/CLI** – Simple request/response flow for session creation and updates
-- **Extensibility** – Add new integrations (e.g., Google Calendar, Slack notifications)
-- **Deployment** – Can be run locally or in Docker
+The system is designed with a **modular and scalable architecture**:
 
-Refer to the diagram above for a detailed view of the system design.
+* **Core Components** → Session Management, Notification Engine, Data Storage
+* **API & UI/CLI** → Simple request/response model for scheduling and updates
+* **Extensibility** → Add integrations (Google Calendar, Slack, etc.)
+* **Deployment** → Run locally or inside Docker
+
+*(Diagram can be added later to illustrate workflow)*
 
 ---
 
 ## 🚀 Getting Started
 
 ### 1️⃣ Clone the Repository
+
 ```bash
 git clone https://github.com/your-username/studysync.git
 cd studysync
 ```
 
-### Use the Repo
+### 2️⃣ Install Dependencies
+
 ```bash
 pip install -r requirements.txt
+```
+
+### 3️⃣ Run the Project
+
+```bash
 python main.py
+```
+
+### 4️⃣ Run with Docker
+
+```bash
 docker build -t studysync .
 docker run -p 8000:8000 studysync
 ```
 
-## 📢 Join Our Community
-This project is open for everyone. Whether you are a beginner or experienced coder, you are welcome to contribute. Let’s learn and grow together! 🌱
+---
 
+## 🤝 How to Contribute
 
-Be a part of our growing community and stay connected 🚀  
+We welcome all contributions — from beginners to experienced developers!
+Here are some ways you can help:
 
-- 🗨️ [Join us on Discord](https://discord.gg/YMJp48qbwR)
-- 📢 [Join our Telegram](https://t.me/gwcacademy)
-- 💼 [Follow our LinkedIn Page](https://www.linkedin.com/company/gwc-academy/)  
-- 💬 [Join our WhatsApp Community](https://whatsapp.com/channel/0029ValnoT1CBtxNi4lt8h1s)
-- 📺 [Subscribe on YouTube](https://www.youtube.com/c/growwithcode?sub_confirmation=1)  
-- 🐦 [Follow on Twitter](https://x.com/goshwami_manish) 
-- 📸 [Follow on Instagram](https://www.instagram.com/grow_with_code)  
+* 🐞 Report bugs or suggest features in [Issues](../../issues)
+* 🛠 Fix bugs or enhance functionality
+* 📖 Improve documentation (like this README)
+* 🧪 Add or improve test coverage
+* 🎨 Enhance UI/UX for a smoother experience
 
+To contribute:
 
-## ☕ Support the Project
-<p>If you like this project and want to support future development, consider buying me a coffee:</p><br>
-<a href="https://www.buymeacoffee.com/mgoshwami1c"> <img align="left" src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" height="50" width="210" alt="mgoshwami1c" ></a>
-  
-  <br><br/>
+1. Fork the repo
+2. Create a new branch (`git checkout -b feature/your-feature`)
+3. Make your changes
+4. Push & open a Pull Request
+
+---
+
+## 📢 Community & Support
+
+Be part of our growing community 🚀
+
+* 🗨️ [Discord](https://discord.gg/YMJp48qbwR)
+* 📢 [Telegram](https://t.me/gwcacademy)
+* 💼 [LinkedIn](https://www.linkedin.com/company/gwc-academy/)
+* 💬 [WhatsApp Channel](https://whatsapp.com/channel/0029ValnoT1CBtxNi4lt8h1s)
+* 📺 [YouTube](https://www.youtube.com/c/growwithcode?sub_confirmation=1)
+* 🐦 [Twitter / X](https://x.com/goshwami_manish)
+* 📸 [Instagram](https://www.instagram.com/grow_with_code)
+
+---
+
+## ☕ Support
+
+If you find this project useful, consider supporting future development:
+
+<a href="https://www.buymeacoffee.com/mgoshwami1c">  
+<img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" height="50" width="210" alt="Buy Me A Coffee">  
+</a>  
