@@ -1,1 +1,4 @@
-print("requirements.txt")
+fastapi
+uvicorn
+pytest
+jinja2
