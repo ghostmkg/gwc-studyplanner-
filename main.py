@@ -1,6 +1,5 @@
 """
-StudySync - Group Study Scheduler
-Main entry point for the application
+StudySync - Group Study Scheduler (CLI Entry Point)
 """
 
 import sys
@@ -39,7 +38,7 @@ def main():
     schedule_parser.add_argument("--topic", help="Session topic")
     
     # List groups command
-    list_parser = subparsers.add_parser("list-groups", help="List all study groups")
+    subparsers.add_parser("list-groups", help="List all study groups")
     
     # Join group command
     join_parser = subparsers.add_parser("join-group", help="Join a study group")
@@ -54,7 +53,7 @@ def main():
                                  help="Time period for analytics")
     
     # Version command
-    version_parser = subparsers.add_parser("version", help="Show version information")
+    subparsers.add_parser("version", help="Show version information")
     
     args = parser.parse_args()
     
@@ -64,8 +63,6 @@ def main():
     
     # Load configuration
     config = load_config()
-    
-    # Initialize CLI interface
     cli = StudySyncCLI(config)
     
     try:
@@ -82,7 +79,7 @@ def main():
         elif args.command == "version":
             cli.show_version()
     except KeyboardInterrupt:
-        print("\n\nOperation cancelled by user.")
+        print("\nOperation cancelled by user.")
         sys.exit(0)
     except Exception as e:
         print(f"Error: {e}")

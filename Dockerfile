@@ -1,18 +1,20 @@
+# ---------------------------------
+# StudySync Dockerfile
+# ---------------------------------
 FROM python:3.11-slim
 
 # Set working directory
 WORKDIR /app
 
-# Set environment variables
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
-ENV PYTHONPATH=/app
+# Environment settings
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PYTHONPATH=/app
 
 # Install system dependencies
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
-        gcc \
-        && rm -rf /var/lib/apt/lists/*
+    && apt-get install -y --no-install-recommends gcc \
+    && rm -rf /var/lib/apt/lists/*
 
 # Copy requirements and install Python dependencies
 COPY requirements.txt .
@@ -22,12 +24,12 @@ RUN pip install --no-cache-dir --upgrade pip \
 # Copy source code
 COPY . .
 
-# Create non-root user
-RUN adduser --disabled-password --gecos '' studysync
-RUN chown -R studysync:studysync /app
+# Create non-root user and set permissions
+RUN adduser --disabled-password --gecos '' studysync \
+    && chown -R studysync:studysync /app
 USER studysync
 
-# Expose port
+# Expose application port
 EXPOSE 8000
 
 # Health check

@@ -10,6 +10,7 @@ services:
       - DATABASE_URL=postgresql://studysync:password@db:5432/studysync_db
     depends_on:
       - db
+      - redis
     volumes:
       - ./data:/app/data
     restart: unless-stopped
