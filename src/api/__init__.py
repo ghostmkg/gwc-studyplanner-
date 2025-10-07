@@ -1,1 +1,3 @@
-print("__init__.py")
+"""
+API modules for StudySync
+"""

@@ -1,1 +1,34 @@
-print("docker-compose.yml")
+version: "3.8"
+
+services:
+  studysync:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - ENVIRONMENT=production
+      - DATABASE_URL=postgresql://studysync:password@db:5432/studysync_db
+    depends_on:
+      - db
+      - redis
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped
+
+  db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: studysync
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: studysync_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+
+volumes:
+  postgres_data:

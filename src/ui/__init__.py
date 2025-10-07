@@ -1,1 +1,3 @@
-print("__init__.py")
+"""
+User interface modules for StudySync
+"""
