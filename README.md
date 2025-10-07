@@ -5,11 +5,11 @@
 
 **StudySync** is a collaborative **Group Study Scheduler** designed to help students and teams plan, manage, and track study sessions effectively.  
 It simplifies scheduling by allowing users to:
-- Create study groups
-- Schedule study sessions
-- Send reminders and notifications
-- Track attendance and progress
-- Get analytics on study hours and participation
+- 🧑‍🤝‍🧑Create study groups
+- 🗓️Schedule study sessions
+- 🔔Send reminders and notifications
+- 📊Track attendance and progress
+- 📈Get analytics on study hours and participation
 
 Whether you are preparing for exams, coding competitions, or collaborative projects, **StudySync** keeps everyone on the same page.
 
@@ -19,10 +19,10 @@ Whether you are preparing for exams, coding competitions, or collaborative proje
 
 The architecture follows a **modular and lightweight design** to ensure scalability and extensibility.  
 Key components:
-- **Core Components** – Session Management, Notification Engine, and Storage
-- **API & UI/CLI** – Simple request/response flow for session creation and updates
-- **Extensibility** – Add new integrations (e.g., Google Calendar, Slack notifications)
-- **Deployment** – Can be run locally or in Docker
+- ⚙️ **Core Components** – Session Management, Notification Engine, and Storage
+- 🌐 **API & UI/CLI** – Simple request/response flow for session creation and updates
+- 🔌**Extensibility** – Add new integrations (e.g., Google Calendar, Slack notifications)
+- 🐳**Deployment** – Can be run locally or in Docker
 
 Refer to the diagram above for a detailed view of the system design.
 
