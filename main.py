@@ -9,7 +9,7 @@ from pathlib import Path
 # Add src directory to Python path
 sys.path.append(str(Path(__file__).parent / "src"))
 
-from src.ui.cli import StudySyncCLI
+from src.ui.cli.main import StudySyncCLI
 from src.utils.config import load_config
 
 
