@@ -11,9 +11,13 @@
 
 ## 📌 Overview
 
-**StudySync** is a collaborative **Group Study Scheduler** designed to help students and teams plan, manage, and track study sessions effectively.
-
-### ✨ Key Features
+**StudySync** is a collaborative **Group Study Scheduler** designed to help students and teams plan, manage, and track study sessions effectively.  
+It simplifies scheduling by allowing users to:
+- 🧑‍🤝‍🧑Create study groups
+- 🗓️Schedule study sessions
+- 🔔Send reminders and notifications
+- 📊Track attendance and progress
+- 📈Get analytics on study hours and participation
 
 - 👥 **Create Study Groups** - Form collaborative study groups with your peers
 - 📅 **Schedule Study Sessions** - Plan and organize study sessions with ease
@@ -51,7 +55,12 @@ StudySync/
 └── main.py
 ```
 
-### 🔧 Technology Stack
+The architecture follows a **modular and lightweight design** to ensure scalability and extensibility.  
+Key components:
+- ⚙️ **Core Components** – Session Management, Notification Engine, and Storage
+- 🌐 **API & UI/CLI** – Simple request/response flow for session creation and updates
+- 🔌**Extensibility** – Add new integrations (e.g., Google Calendar, Slack notifications)
+- 🐳**Deployment** – Can be run locally or in Docker
 
 - **Backend**: Python 3.8+
 - **Database**: SQLite (default) / PostgreSQL (production)
