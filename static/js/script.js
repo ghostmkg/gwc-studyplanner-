@@ -1,21 +1,256 @@
-//this is the main js file controlling the behaviour of the pages now and might also later
-
+//StudySync Frontend JavaScript
 document.addEventListener('DOMContentLoaded', function() {
     initStudySync();        //initializing all functionality
 });
 
+//global variables
+let currentUser = null;
+let authToken = null;
+
 function initStudySync() {
     initAnimations(); //init-ing animations
-    
     initEventListeners(); //initing eventlisteners
-    
     initNavigation(); //init-ing navigations
-    
     initSessionManagement(); //initning session management 
-    
     initAuthFunctionality(); //init-ing auth functionality
     
+    //check if user is already logged in
+    checkExistingAuth();
+    
     console.log('StudySync initialized successfully!');
+}
+
+//authentication functions
+async function checkExistingAuth() {
+    const token = localStorage.getItem('studysync_token');
+    if (token) {
+        authToken = token;
+        try {
+            const user = await fetchCurrentUser();
+            if (user) {
+                currentUser = user;
+                updateUIForLoggedInUser();
+            }
+        } catch (error) {
+            console.log('Invalid token, logging out...');
+            logout();
+        }
+    }
+}
+
+async function fetchCurrentUser() {
+    try {
+        const response = await fetch('/api/auth/me', {
+            headers: {
+                'Authorization': `Bearer ${authToken}`
+            }
+        });
+        
+        if (response.ok) {
+            return await response.json();
+        } else {
+            throw new Error('Not authenticated');
+        }
+    } catch (error) {
+        console.error('Error fetching user:', error);
+        return null;
+    }
+}
+
+function updateUIForLoggedInUser() {
+    const authButtons = document.querySelector('.auth-buttons');
+    if (authButtons && currentUser) {
+        authButtons.innerHTML = `
+            <span style="color: white; margin-right: 15px;">Hello, ${currentUser.full_name}</span>
+            <a href="#" class="btn btn-outline" id="dashboardBtn">Dashboard</a>
+            <a href="#" class="btn" id="logoutBtn">Log Out</a>
+        `;
+        
+        document.getElementById('logoutBtn').addEventListener('click', logout);
+        document.getElementById('dashboardBtn').addEventListener('click', showDashboard);
+    }
+}
+
+function logout() {
+    localStorage.removeItem('studysync_token');
+    authToken = null;
+    currentUser = null;
+    location.reload();
+}
+
+function showDashboard() {
+    showNotification('Dashboard feature coming soon!', 'info');
+}
+
+//API functions
+async function apiRequest(endpoint, options = {}) {
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+            ...options.headers
+        },
+        ...options
+    };
+    
+    if (authToken) {
+        config.headers['Authorization'] = `Bearer ${authToken}`;
+    }
+    
+    try {
+        const response = await fetch(endpoint, config);
+        const data = await response.json();
+        
+        if (!response.ok) {
+            throw new Error(data.detail || 'API request failed');
+        }
+        
+        return data;
+    } catch (error) {
+        console.error('API request failed:', error);
+        showNotification(error.message, 'error');
+        throw error;
+    }
+}
+
+//authentication modals
+function showLoginModal() {
+    const modalHTML = `
+        <div class="modal-overlay" id="loginModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Log In to StudySync</h3>
+                    <button class="close-modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label for="loginEmail">Email</label>
+                            <input type="email" id="loginEmail" placeholder="your@email.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="loginPassword">Password</label>
+                            <input type="password" id="loginPassword" placeholder="Enter your password" required>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-outline" id="cancelLogin">Cancel</button>
+                            <button type="submit" class="btn">Log In</button>
+                        </div>
+                    </form>
+                    <p style="text-align: center; margin-top: 15px;">
+                        Don't have an account? <a href="#" id="showSignup">Sign up here</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    showModal(modalHTML, 'loginModal');
+    
+    document.getElementById('loginForm').addEventListener('submit', handleLogin);
+    document.getElementById('showSignup').addEventListener('click', function(e) {
+        e.preventDefault();
+        closeModal();
+        showSignupModal();
+    });
+}
+
+function showSignupModal() {
+    const modalHTML = `
+        <div class="modal-overlay" id="signupModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Create Your StudySync Account</h3>
+                    <button class="close-modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form id="signupForm">
+                        <div class="form-group">
+                            <label for="signupFullName">Full Name</label>
+                            <input type="text" id="signupFullName" placeholder="Enter your full name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signupUsername">Username</label>
+                            <input type="text" id="signupUsername" placeholder="Choose a username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signupEmail">Email</label>
+                            <input type="email" id="signupEmail" placeholder="your@email.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signupPassword">Password</label>
+                            <input type="password" id="signupPassword" placeholder="Create a password" required>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-outline" id="cancelSignup">Cancel</button>
+                            <button type="submit" class="btn">Create Account</button>
+                        </div>
+                    </form>
+                    <p style="text-align: center; margin-top: 15px;">
+                        Already have an account? <a href="#" id="showLogin">Log in here</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    showModal(modalHTML, 'signupModal');
+    
+    document.getElementById('signupForm').addEventListener('submit', handleSignup);
+    document.getElementById('showLogin').addEventListener('click', function(e) {
+        e.preventDefault();
+        closeModal();
+        showLoginModal();
+    });
+}
+
+async function handleLogin(e) {
+    e.preventDefault();
+    
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
+    
+    try {
+        const data = await apiRequest('/api/auth/login', {
+            method: 'POST',
+            body: JSON.stringify({ email, password })
+        });
+        
+        authToken = data.access_token;
+        localStorage.setItem('studysync_token', authToken);
+        
+        currentUser = await fetchCurrentUser();
+        showNotification('Login successful!', 'success');
+        closeModal();
+        updateUIForLoggedInUser();
+        
+    } catch (error) {
+        showNotification('Login failed. Please check your credentials.', 'error');
+    }
+}
+
+async function handleSignup(e) {
+    e.preventDefault();
+    
+    const formData = {
+        full_name: document.getElementById('signupFullName').value,
+        username: document.getElementById('signupUsername').value,
+        email: document.getElementById('signupEmail').value,
+        password: document.getElementById('signupPassword').value
+    };
+    
+    try {
+        await apiRequest('/api/auth/register', {
+            method: 'POST',
+            body: JSON.stringify(formData)
+        });
+        
+        showNotification('Account created successfully! Please log in.', 'success');
+        closeModal();
+        showLoginModal();
+        
+    } catch (error) {
+        showNotification('Signup failed. Please try again.', 'error');
+    }
 }
 
 //animation functions here
@@ -106,11 +341,7 @@ function initEventListeners() {
     if (getStartedBtn) {
         getStartedBtn.addEventListener('click', function(e) {
             e.preventDefault();
-            showNotification('Redirecting to sign up page...', 'success');
-            //when signup page and backend will be ready this will redirect to the same
-            setTimeout(() => {
-                window.location.href = '/signup';
-            }, 1000);
+            showSignupModal(); // Show modal instead of redirect
         });
     }
     
@@ -118,15 +349,13 @@ function initEventListeners() {
         demoBtn.addEventListener('click', function(e) {
             e.preventDefault();
             showNotification('Opening demo video...', 'info');
-            //when developed this will open a modal with demo video for tutorials and promo instructions
         });
     }
     
     if (createAccountBtn) {
         createAccountBtn.addEventListener('click', function(e) {
             e.preventDefault();
-            showNotification('Creating your account...', 'success');
-            //to redirect on signup page when backend developed
+            showSignupModal(); // Show modal instead of redirect
         });
     }
     
@@ -149,6 +378,11 @@ function initEventListeners() {
     if (newSessionBtn) {
         newSessionBtn.addEventListener('click', function(e) {
             e.preventDefault();
+            if (!currentUser) {
+                showNotification('Please log in to create sessions', 'warning');
+                showLoginModal(); // Show login modal if not authenticated
+                return;
+            }
             showSessionModal();
         });
     }
@@ -193,16 +427,24 @@ function updateActiveNavLink(clickedLink) {
 }
 
 function initMobileMenu() {
-    //this would be expanded for mobile menu functionality
+    //this will be expanded for mobile menu functionality
 }
 
 //session Management
-function initSessionManagement() {
+async function initSessionManagement() {
+    await loadSessionsFromAPI();
+    
     const joinButtons = document.querySelectorAll('.join-session');
     
     joinButtons.forEach(button => {
         button.addEventListener('click', function(e) {
             e.preventDefault();
+            if (!currentUser) {
+                showNotification('Please log in to join sessions', 'warning');
+                showLoginModal();
+                return;
+            }
+            
             const sessionItem = this.closest('.session-item');
             const sessionTitle = sessionItem.querySelector('h4').textContent;
             
@@ -216,13 +458,49 @@ function initSessionManagement() {
                 sessionItem.style.backgroundColor = '#f0f8ff';
                 sessionItem.style.borderColor = '#4361ee';
                 
-                // In fully developed app, this would redirect to the session
+                //In fully developed app, this will redirect to the session
                 setTimeout(() => {
                     showNotification(`Successfully joined ${sessionTitle}`, 'success');
                 }, 500);
             }, 1500);
         });
     });
+}
+
+async function loadSessionsFromAPI() {
+    try {
+        const data = await apiRequest('/api/sessions');
+        updateSessionList(data.sessions);
+    } catch (error) {
+        console.log('Could not load sessions from API, using demo data');
+    }
+}
+
+function updateSessionList(sessions) {
+    const sessionList = document.querySelector('.session-list');
+    if (!sessionList || !sessions || sessions.length === 0) return;
+    
+    sessionList.innerHTML = sessions.map(session => `
+        <div class="session-item">
+            <div class="session-info">
+                <h4>${session.title}</h4>
+                <div class="session-meta">
+                    <span><i class="far fa-calendar"></i> ${formatSessionDate(session.scheduled_time)}</span>
+                    <span><i class="far fa-clock"></i> ${session.duration_minutes} minutes</span>
+                    <span><i class="fas fa-users"></i> ${session.group_name}</span>
+                </div>
+                <p>${session.description}</p>
+            </div>
+            <div class="session-actions">
+                <a href="#" class="btn join-session">Join</a>
+            </div>
+        </div>
+    `).join('');
+}
+
+function formatSessionDate(dateString) {
+    const date = new Date(dateString);
+    return date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
 }
 
 function showSessionModal() {
@@ -249,6 +527,10 @@ function showSessionModal() {
                             <input type="number" id="sessionDuration" min="0.5" max="8" step="0.5" value="1" required>
                         </div>
                         <div class="form-group">
+                            <label for="sessionMaxParticipants">Max Participants</label>
+                            <input type="number" id="sessionMaxParticipants" min="2" max="20" value="10" required>
+                        </div>
+                        <div class="form-group">
                             <label for="sessionDescription">Description</label>
                             <textarea id="sessionDescription" placeholder="What will you be studying?" rows="3"></textarea>
                         </div>
@@ -264,6 +546,10 @@ function showSessionModal() {
     
     document.body.insertAdjacentHTML('beforeend', modalHTML);
     addModalStyles();
+    
+    //setting minimum date to today
+    const today = new Date().toISOString().slice(0, 16);
+    document.getElementById('sessionDate').min = today;
     
     //event listeners for modal
     const modal = document.getElementById('sessionModal');
@@ -298,127 +584,134 @@ function showSessionModal() {
 }
 
 function addModalStyles() {
-    const modalStyles = `
-        <style>
-            .modal-overlay {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: rgba(0, 0, 0, 0.5);
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                z-index: 2000;
-                opacity: 0;
-                transition: opacity 0.3s ease;
-            }
-            
-            .modal-overlay.active {
-                opacity: 1;
-            }
-            
-            .modal-content {
-                background-color: white;
-                border-radius: var(--border-radius);
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-                width: 90%;
-                max-width: 500px;
-                transform: translateY(-50px);
-                transition: transform 0.3s ease;
-            }
-            
-            .modal-overlay.active .modal-content {
-                transform: translateY(0);
-            }
-            
-            .modal-header {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding: 20px;
-                border-bottom: 1px solid var(--light-gray);
-            }
-            
-            .modal-header h3 {
-                margin: 0;
-                color: var(--primary);
-            }
-            
-            .close-modal {
-                background: none;
-                border: none;
-                font-size: 1.5rem;
-                cursor: pointer;
-                color: var(--gray);
-            }
-            
-            .modal-body {
-                padding: 20px;
-            }
-            
-            .form-group {
-                margin-bottom: 20px;
-            }
-            
-            .form-group label {
-                display: block;
-                margin-bottom: 5px;
-                font-weight: 600;
-                color: var(--dark);
-            }
-            
-            .form-group input,
-            .form-group textarea,
-            .form-group select {
-                width: 100%;
-                padding: 10px;
-                border: 1px solid var(--light-gray);
-                border-radius: var(--border-radius);
-                font-family: inherit;
-                transition: var(--transition);
-            }
-            
-            .form-group input:focus,
-            .form-group textarea:focus,
-            .form-group select:focus {
-                outline: none;
-                border-color: var(--primary);
-                box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
-            }
-            
-            .form-actions {
-                display: flex;
-                justify-content: flex-end;
-                gap: 10px;
-                margin-top: 30px;
-            }
-        </style>
-    `;
-    
-    document.head.insertAdjacentHTML('beforeend', modalStyles);
+    if (!document.querySelector('#modal-styles')) {
+        const modalStyles = `
+            <style id="modal-styles">
+                .modal-overlay {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0.5);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 2000;
+                    opacity: 0;
+                    transition: opacity 0.3s ease;
+                }
+                
+                .modal-overlay.active {
+                    opacity: 1;
+                }
+                
+                .modal-content {
+                    background-color: white;
+                    border-radius: var(--border-radius);
+                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+                    width: 90%;
+                    max-width: 500px;
+                    transform: translateY(-50px);
+                    transition: transform 0.3s ease;
+                }
+                
+                .modal-overlay.active .modal-content {
+                    transform: translateY(0);
+                }
+                
+                .modal-header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 20px;
+                    border-bottom: 1px solid var(--light-gray);
+                }
+                
+                .modal-header h3 {
+                    margin: 0;
+                    color: var(--primary);
+                }
+                
+                .close-modal {
+                    background: none;
+                    border: none;
+                    font-size: 1.5rem;
+                    cursor: pointer;
+                    color: var(--gray);
+                }
+                
+                .modal-body {
+                    padding: 20px;
+                }
+                
+                .form-group {
+                    margin-bottom: 20px;
+                }
+                
+                .form-group label {
+                    display: block;
+                    margin-bottom: 5px;
+                    font-weight: 600;
+                    color: var(--dark);
+                }
+                
+                .form-group input,
+                .form-group textarea,
+                .form-group select {
+                    width: 100%;
+                    padding: 10px;
+                    border: 1px solid var(--light-gray);
+                    border-radius: var(--border-radius);
+                    font-family: inherit;
+                    transition: var(--transition);
+                }
+                
+                .form-group input:focus,
+                .form-group textarea:focus,
+                .form-group select:focus {
+                    outline: none;
+                    border-color: var(--primary);
+                    box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+                }
+                
+                .form-actions {
+                    display: flex;
+                    justify-content: flex-end;
+                    gap: 10px;
+                    margin-top: 30px;
+                }
+            </style>
+        `;
+        document.head.insertAdjacentHTML('beforeend', modalStyles);
+    }
 }
 
-function createNewSession(form) {
-    const formData = new FormData(form);
+async function createNewSession(form) {
     const sessionData = {
         title: document.getElementById('sessionTitle').value,
-        date: document.getElementById('sessionDate').value,
-        duration: document.getElementById('sessionDuration').value,
-        description: document.getElementById('sessionDescription').value
+        description: document.getElementById('sessionDescription').value,
+        scheduled_time: document.getElementById('sessionDate').value,
+        duration_minutes: parseInt(document.getElementById('sessionDuration').value) * 60,
+        max_participants: parseInt(document.getElementById('sessionMaxParticipants').value),
+        group_id: 1 //default group for now
     };
     
-    //simulating API call
-    showNotification('Creating your session...', 'info');
-    
-    setTimeout(() => {
+    try {
+        showNotification('Creating your session...', 'info');
+        
+        await apiRequest('/api/sessions', {
+            method: 'POST',
+            body: JSON.stringify(sessionData)
+        });
+        
         showNotification('Session created successfully!', 'success');
         closeModal();
+        await loadSessionsFromAPI(); //refresh the session list
         
-        // In our developed app, this would update the session list
-        console.log('New session created:', sessionData);
-    }, 1500);
+    } catch (error) {
+        showNotification('Failed to create session', 'error');
+    }
 }
 
 //auth functionality
@@ -429,16 +722,14 @@ function initAuthFunctionality() {
     if (loginBtn) {
         loginBtn.addEventListener('click', function(e) {
             e.preventDefault();
-            showNotification('Redirecting to login...', 'info');
-            //this would redirect to login page when developed
+            showLoginModal(); //show modal instead of redirect
         });
     }
     
     if (signupBtn) {
         signupBtn.addEventListener('click', function(e) {
             e.preventDefault();
-            showNotification('Redirecting to sign up...', 'info');
-            //this would redirect to signup page when developed
+            showSignupModal(); //show modal instead of redirect
         });
     }
 }
@@ -543,6 +834,61 @@ function showNotification(message, type = 'info') {
             }
         }, 300);
     }
+}
+
+//modal utility functions
+function showModal(modalHTML, modalId) {
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+    
+    const modal = document.getElementById(modalId);
+    const closeBtn = modal.querySelector('.close-modal');
+    const cancelBtn = modal.querySelector(`#cancel${modalId.replace('Modal', '')}`);
+    
+    setTimeout(() => {
+        modal.classList.add('active');
+    }, 10);
+    
+    closeBtn.addEventListener('click', () => closeModal());
+    if (cancelBtn) {
+        cancelBtn.addEventListener('click', () => closeModal());
+    }
+    
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+    
+    function closeModal() {
+        modal.classList.remove('active');
+        setTimeout(() => {
+            if (modal.parentNode) {
+                modal.remove();
+            }
+        }, 300);
+    }
+}
+
+function closeModal() {
+    const modal = document.querySelector('.modal-overlay.active');
+    if (modal) {
+        modal.classList.remove('active');
+        setTimeout(() => {
+            if (modal.parentNode) {
+                modal.remove();
+            }
+        }, 300);
+    }
+}
+
+function smoothScrollToElement(element) {
+    const headerHeight = document.querySelector('header').offsetHeight;
+    const targetPosition = element.offsetTop - headerHeight;
+    
+    window.scrollTo({
+        top: targetPosition,
+        behavior: 'smooth'
+    });
 }
 
 //utility functions
