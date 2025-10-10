@@ -17,3 +17,6 @@ env/
 
 #editor settings
 .vscode/
+
+#db
+studysync.db
