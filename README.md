@@ -184,6 +184,9 @@ Help us improve documentation by:
 
 ## 🧪 Testing
 
+### 📘 CLI Usage Guide
+
+See `CLI_USAGE.md` for common commands and examples to create groups, schedule sessions, and view analytics from the command line.
 ```bash
 # Run all tests
 pytest
