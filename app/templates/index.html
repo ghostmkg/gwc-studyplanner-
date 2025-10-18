@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudySync - Group Study Scheduler</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">🚀</div>
+                    <h1>StudySync</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#" class="active">Home</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#testimonials">Testimonials</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="auth-buttons">
+                    <a href="#" class="btn btn-outline" id="loginBtn">Log In</a>
+                    <a href="#" class="btn" id="signupBtn">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2>Study Smarter, Together</h2>
+                <p>Plan study sessions, track progress, and stay coordinated with your team using StudySync's collaborative platform.</p>
+                <div class="cta-buttons">
+                    <a href="#" class="btn" id="getStartedBtn">Get Started Free</a>
+                    <a href="#" class="btn btn-outline" id="demoBtn">Watch Demo</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Powerful Features for Effective Learning</h2>
+                <p>StudySync provides everything you need to organize and optimize your group study sessions.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Create Study Groups</h3>
+                    <p>Easily form study groups with classmates, set goals, and assign roles for maximum productivity.</p>
+                </div>
+                <div class="feature-card card">
+                    <div class="feature-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h3>Schedule Sessions</h3>
+                    <p>Find the perfect time for everyone with our smart scheduling that considers all members' availability.</p>
+                </div>
+                <div class="feature-card card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <h3>Smart Reminders</h3>
+                    <p>Never miss a session with automated reminders via email, SMS, or push notifications.</p>
+                </div>
+                <div class="feature-card card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Progress Tracking</h3>
+                    <p>Monitor attendance, participation, and learning outcomes with detailed analytics.</p>
+                </div>
+                <div class="feature-card card">
+                    <div class="feature-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3>Shared Resources</h3>
+                    <p>Upload and organize study materials, notes, and resources in one centralized location.</p>
+                </div>
+                <div class="feature-card card">
+                    <div class="feature-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3>Collaborative Tools</h3>
+                    <p>Use built-in whiteboards, document collaboration, and video conferencing for effective studying.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="section-title">
+                <h2>How StudySync Works</h2>
+                <p>Get your study group up and running in just a few simple steps.</p>
+            </div>
+            <div class="steps">
+                <div class="step card">
+                    <div class="step-number">1</div>
+                    <h3>Create Your Group</h3>
+                    <p>Set up your study group and invite members via email or shareable link.</p>
+                </div>
+                <div class="step card">
+                    <div class="step-number">2</div>
+                    <h3>Set Availability</h3>
+                    <p>Each member marks their available times for optimal scheduling.</p>
+                </div>
+                <div class="step card">
+                    <div class="step-number">3</div>
+                    <h3>Schedule Sessions</h3>
+                    <p>StudySync finds the best times and creates sessions automatically.</p>
+                </div>
+                <div class="step card">
+                    <div class="step-number">4</div>
+                    <h3>Study & Track</h3>
+                    <p>Join sessions, collaborate, and track your group's progress over time.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="dashboard-preview">
+        <div class="container">
+            <div class="section-title">
+                <h2>StudySync Dashboard</h2>
+                <p>Experience our intuitive interface designed for seamless group study management.</p>
+            </div>
+            <div class="dashboard-container card">
+                <div class="sidebar">
+                    <ul>
+                        <li><a href="#"><i class="fas fa-home"></i> Dashboard</a></li>
+                        <li><a href="#"><i class="fas fa-calendar"></i> Schedule</a></li>
+                        <li><a href="#"><i class="fas fa-users"></i> My Groups</a></li>
+                        <li><a href="#"><i class="fas fa-tasks"></i> Tasks</a></li>
+                        <li><a href="#"><i class="fas fa-chart-bar"></i> Analytics</a></li>
+                        <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+                    </ul>
+                </div>
+                <div class="main-content">
+                    <div class="dashboard-header">
+                        <h3>Upcoming Study Sessions</h3>
+                        <a href="#" class="btn" id="newSessionBtn">New Session</a>
+                    </div>
+                    <div class="session-list">
+                        <div class="session-item">
+                            <div class="session-info">
+                                <h4>Advanced Calculus Review</h4>
+                                <div class="session-meta">
+                                    <span><i class="far fa-calendar"></i> Tomorrow, 3:00 PM</span>
+                                    <span><i class="far fa-clock"></i> 2 hours</span>
+                                    <span><i class="fas fa-users"></i> 4/5 attending</span>
+                                </div>
+                            </div>
+                            <div class="session-actions">
+                                <a href="#" class="btn join-session">Join</a>
+                            </div>
+                        </div>
+                        <div class="session-item">
+                            <div class="session-info">
+                                <h4>Biology Lab Prep</h4>
+                                <div class="session-meta">
+                                    <span><i class="far fa-calendar"></i> Friday, 10:00 AM</span>
+                                    <span><i class="far fa-clock"></i> 1.5 hours</span>
+                                    <span><i class="fas fa-users"></i> 3/4 attending</span>
+                                </div>
+                            </div>
+                            <div class="session-actions">
+                                <a href="#" class="btn join-session">Join</a>
+                            </div>
+                        </div>
+                        <div class="session-item">
+                            <div class="session-info">
+                                <h4>Literature Discussion</h4>
+                                <div class="session-meta">
+                                    <span><i class="far fa-calendar"></i> Next Monday, 2:00 PM</span>
+                                    <span><i class="far fa-clock"></i> 1 hour</span>
+                                    <span><i class="fas fa-users"></i> 5/5 attending</span>
+                                </div>
+                            </div>
+                            <div class="session-actions">
+                                <a href="#" class="btn join-session">Join</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>What Students Say</h2>
+                <p>Hear from students who have transformed their study habits with StudySync.</p>
+            </div>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "StudySync made organizing our study group so much easier. We've improved our grades and actually enjoy studying together now!"
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">JS</div>
+                        <div class="author-info">
+                            <h4>Jessica Smith</h4>
+                            <p>Computer Science Major</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "The scheduling feature saved us hours of back-and-forth messaging. Now we can focus on what matters - learning!"
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">MR</div>
+                        <div class="author-info">
+                            <h4>Michael Rodriguez</h4>
+                            <p>Engineering Student</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "As someone with a busy schedule, StudySync helps me coordinate with my study group without the stress. Highly recommend!"
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">AK</div>
+                        <div class="author-info">
+                            <h4>Amanda Kim</h4>
+                            <p>Pre-Med Student</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta" id="contact">
+        <div class="container">
+            <h2>Ready to Transform Your Study Sessions?</h2>
+            <p>Join thousands of students who are already studying smarter with StudySync. Start for free today!</p>
+            <div class="cta-buttons">
+                <a href="#" class="btn" id="createAccountBtn">Create Your Account</a>
+                <a href="#" class="btn btn-outline" id="learnMoreBtn">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>StudySync</h3>
+                    <p>Your collaborative group study scheduler designed to help students learn better together.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Features</h3>
+                    <ul>
+                        <li><a href="#">Group Creation</a></li>
+                        <li><a href="#">Smart Scheduling</a></li>
+                        <li><a href="#">Progress Tracking</a></li>
+                        <li><a href="#">Resource Sharing</a></li>
+                        <li><a href="#">Collaboration Tools</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Tutorials</a></li>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Study Tips</a></li>
+                        <li><a href="#">Community</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>StudySync. An Open Source Project.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="/static/js/script.js"></script>
+</body>
+</html>
