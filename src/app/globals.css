@@ -1,0 +1,111 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%; /* White */
+    --foreground: 222 47% 11%; /* Dark Gray-Blue (like text-gray-900) */
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    --primary: 207 70% 53%; /* Calm blue #3498db */
+    --primary-foreground: 0 0% 100%; /* White for contrast on blue */
+
+    --secondary: 220 13% 91%; /* Light gray for secondary elements */
+    --secondary-foreground: 222 47% 11%;
+
+    --muted: 220 14% 96%; /* Lighter gray for muted */
+    --muted-foreground: 220 9% 46%; /* Muted text */
+
+    --accent: 145 63% 49%; /* Green #2ecc71 */
+    --accent-foreground: 0 0% 100%; /* White for contrast on green */
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 13% 91%; /* Border color */
+    --input: 220 13% 91%; /* Input border */
+    --ring: 207 70% 53%; /* Calm blue for ring */
+
+    --radius: 0.5rem;
+
+    /* Sidebar specific colors - can remain default or be themed if a sidebar is used extensively */
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 207 70% 53%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 0% 95%;
+    --sidebar-accent-foreground: 240 10% 3.9%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 207 70% 53%;
+
+    /* Chart colors */
+    --chart-1: 207 70% 53%; /* primary */
+    --chart-2: 145 63% 49%; /* accent */
+    --chart-3: 25 95% 53%; /* orange */
+    --chart-4: 262 80% 58%; /* purple */
+    --chart-5: 340 82% 52%; /* pink */
+  }
+
+  .dark {
+    --background: 222 39% 11%; /* Dark Gray (like bg-gray-900) */
+    --foreground: 0 0% 98%; /* Almost White */
+
+    --card: 222 39% 14%; /* Slightly lighter dark for cards */
+    --card-foreground: 0 0% 98%;
+
+    --popover: 222 39% 14%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 207 70% 53%; /* Calm blue */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 215 28% 17%; /* Darker gray for secondary elements */
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 215 28% 17%;
+    --muted-foreground: 215 10% 65%; /* Muted text for dark */
+
+    --accent: 145 63% 49%; /* Green */
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 72% 51%; /* Destructive for dark */
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 215 28% 17%; /* Border for dark */
+    --input: 215 28% 17%; /* Input border for dark */
+    --ring: 207 70% 53%; /* Calm blue for ring */
+    
+    /* Sidebar specific colors for dark theme */
+    --sidebar-background: 222 39% 9%; /* Darker sidebar */
+    --sidebar-foreground: 0 0% 95%;
+    --sidebar-primary: 207 70% 53%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 222 39% 17%;
+    --sidebar-accent-foreground: 0 0% 95%;
+    --sidebar-border: 222 39% 17%;
+    --sidebar-ring: 207 70% 53%;
+
+    /* Chart colors for dark theme - can be the same or adjusted */
+    --chart-1: 207 70% 53%;
+    --chart-2: 145 63% 49%;
+    --chart-3: 25 95% 53%;
+    --chart-4: 262 80% 58%;
+    --chart-5: 340 82% 52%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    /* font-family is handled by layout.tsx */
+  }
+}
