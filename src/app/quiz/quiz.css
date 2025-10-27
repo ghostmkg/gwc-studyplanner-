@@ -1,0 +1,327 @@
+/* Importing Google fonts - Montserrat */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap');
+
+.quiz-body-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 5rem); /* Account for sticky header */
+  background: hsl(var(--background)); /* Use theme background */
+  font-family: "Montserrat", sans-serif;
+  padding: 1rem;
+}
+
+.quiz-view-container {
+  width: 100%;
+  max-width: 520px; /* Max width for the quiz box itself */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.quiz-box {
+  width: 100%;
+  background: hsl(var(--card)); /* Use theme card background */
+  color: hsl(var(--card-foreground));
+  border-radius: 0.5rem; /* Consistent with ShadCN */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  border: 1px solid hsl(var(--border));
+}
+
+/* Quiz Configuration Stylings */
+.config-container {
+  padding: 25px;
+  text-align: center;
+  margin-bottom: 2rem; /* Space before quiz starts or if it's separate */
+}
+
+.config-container .config-title {
+  font-size: 1.5rem; /* Increased slightly for better hierarchy */
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: hsl(var(--foreground));
+}
+
+.config-container .config-option {
+  margin-top: 25px;
+}
+
+.config-option .option-title {
+  font-weight: 500;
+  font-size: 1.125rem;
+  margin-bottom: 20px;
+  color: hsl(var(--muted-foreground));
+}
+
+.config-option .category-options {
+  display: grid;
+  gap: 15px;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Responsive categories */
+}
+
+.config-option .question-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 0; /* Remove horizontal padding */
+  justify-content: center;
+}
+
+/* Styling for buttons used in config, adapted to ShadCN principles if possible or custom */
+.config-option button.config-button {
+  padding: 10px 15px; /* Adjusted padding */
+  font-size: 0.9rem;
+  color: hsl(var(--foreground));
+  cursor: pointer;
+  font-weight: 500;
+  border-radius: 0.375rem; /* ShadCN's default md radius */
+  background: hsl(var(--background));
+  border: 1px solid hsl(var(--input)); /* Use input border color */
+  transition: all 0.2s ease-in-out;
+}
+
+.config-option button.config-button:hover {
+  border-color: hsl(var(--primary));
+  background: hsl(var(--accent));
+  color: hsl(var(--accent-foreground));
+}
+
+.config-option button.config-button.active {
+  color: hsl(var(--primary-foreground));
+  border-color: hsl(var(--primary));
+  background: hsl(var(--primary));
+}
+
+
+.config-option .question-options button.config-button {
+  flex: 1 1 auto; /* Allow flexible sizing */
+  min-width: 40px; /* ensure small numbers are clickable */
+}
+
+.start-quiz-btn,
+.quiz-footer .next-question-btn,
+.result-container .try-again-btn {
+  /* This will be handled by ShadCN Button component for consistency */
+}
+
+
+/* Quiz Container Stylings */
+.quiz-container {
+  width: 100%; /* Takes full width of its parent (.quiz-view-container) */
+}
+
+.quiz-container .quiz-header {
+  display: flex;
+  padding: 14px 20px; /* Adjusted padding */
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid hsl(var(--border)); /* Use theme border */
+}
+
+.quiz-header .quiz-title {
+  font-size: 1.3rem; /* Adjusted */
+  font-weight: 700;
+  color: hsl(var(--foreground));
+}
+
+.quiz-header .quiz-timer {
+  display: flex;
+  /* width: 70px; */ /* Let width be auto */
+  color: hsl(var(--primary-foreground)); /* Contrast on primary */
+  gap: 8px; /* Increased gap */
+  align-items: center;
+  background: hsl(var(--primary)); /* Use theme primary */
+  border-radius: 0.375rem; /* ShadCN md radius */
+  padding: 7px 12px; /* Adjusted padding */
+  font-weight: 600;
+  transition: background-color 0.2s ease; /* Smooth transition for color change */
+}
+.quiz-header .quiz-timer.timed-out {
+    background: hsl(var(--destructive));
+}
+
+
+.quiz-header .quiz-timer .material-symbols-rounded {
+  font-size: 1.25rem; /* Material icon size */
+}
+.quiz-header .quiz-timer .timer-duration {
+  font-size: 0.9rem; /* Timer text size */
+}
+
+
+.quiz-container .quiz-content {
+  padding: 20px; /* Uniform padding */
+}
+
+.quiz-content .question-text {
+  font-size: 1.4rem; /* Adjusted */
+  font-weight: 600;
+  margin-bottom: 1.5rem; /* Space below question */
+  line-height: 1.4;
+  color: hsl(var(--foreground));
+}
+
+.quiz-content .answer-options {
+  list-style: none;
+  display: flex;
+  gap: 12px; /* Adjusted gap */
+  margin-top: 20px;
+  flex-direction: column;
+}
+
+.quiz-content .answer-option {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  font-weight: 500;
+  border-radius: 0.375rem; /* ShadCN md radius */
+  padding: 12px 16px; /* Adjusted padding */
+  border: 1px solid hsl(var(--input)); /* Use theme input border */
+  background: hsl(var(--background)); /* Use theme background */
+  color: hsl(var(--foreground));
+  justify-content: space-between;
+  transition: all 0.2s ease-in-out;
+  text-align: left;
+}
+.quiz-content .answer-option:hover {
+  border-color: hsl(var(--primary));
+  background: hsl(var(--accent));
+  color: hsl(var(--accent-foreground));
+}
+.quiz-content .answer-option .option-text {
+ flex-grow: 1;
+}
+
+.quiz-content .answer-option .material-symbols-rounded {
+  font-size: 1.5rem; /* Icon size */
+  margin-left: 12px; /* Space before icon */
+}
+
+.quiz-content .answer-option.correct {
+  border-color: hsl(var(--accent)); /* Greenish accent for correct */
+  background: hsl(var(--accent) / 0.15); /* Lighter accent background */
+  color: hsl(var(--accent)); /* Darker green text for correct */
+}
+.quiz-content .answer-option.correct .material-symbols-rounded {
+  color: hsl(var(--accent));
+}
+
+.quiz-content .answer-option.incorrect {
+  border-color: hsl(var(--destructive)); /* Reddish for incorrect */
+  background: hsl(var(--destructive) / 0.15); /* Lighter destructive background */
+  color: hsl(var(--destructive)); /* Darker red text for incorrect */
+}
+.quiz-content .answer-option.incorrect .material-symbols-rounded {
+  color: hsl(var(--destructive));
+}
+
+.quiz-content .answer-option.disabled {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+
+.quiz-container .quiz-footer {
+  padding: 15px 20px; /* Adjusted padding */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid hsl(var(--border)); /* Use theme border */
+}
+
+.quiz-footer .question-status {
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: hsl(var(--muted-foreground));
+}
+.quiz-footer .question-status b {
+  font-weight: 700;
+  color: hsl(var(--foreground));
+}
+
+/* Next button will be a ShadCN button, specific styling here is less needed */
+
+/* Quiz Result Stylings */
+.result-container {
+  text-align: center;
+  padding: 30px 20px; /* Adjusted padding */
+  width: 100%; /* Takes full width of its parent (.quiz-view-container) */
+}
+
+.result-container .result-img {
+  width: 110px;
+  height: 110px;
+  object-fit: contain; /* If using an actual image */
+  margin-bottom: 1.5rem;
+}
+
+.result-container .result-title {
+  font-size: 1.75rem; /* Larger title */
+  font-weight: 600;
+  margin-bottom: 0.75rem; /* Space below title */
+  color: hsl(var(--foreground));
+}
+
+.result-container .result-message {
+  font-size: 1.1rem; /* Adjusted */
+  font-weight: 500;
+  margin-top: 15px;
+  margin-bottom: 2rem; /* Space before buttons */
+  color: hsl(var(--muted-foreground));
+  line-height: 1.6;
+}
+
+.result-container .result-message b {
+  font-weight: 700;
+  color: hsl(var(--primary)); /* Use theme primary for emphasis */
+}
+
+.result-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem; /* Space between buttons */
+  align-items: center;
+}
+
+@media (min-width: 640px) { /* sm breakpoint */
+  .result-buttons {
+    flex-direction: row;
+    justify-content: center;
+  }
+}
+
+
+/* Media query code for mobile screens */
+@media (max-width: 624px) {
+  .quiz-body-container {
+    padding: 0.5rem;
+  }
+  .config-container,
+  .quiz-container .quiz-content {
+    padding: 15px;
+  }
+  .config-option .category-options {
+    grid-template-columns: 1fr; /* Single column for categories on small screens */
+  }
+  .quiz-content .answer-option {
+    padding: 10px 12px;
+  }
+  .quiz-container .quiz-header,
+  .quiz-container .quiz-footer {
+    padding: 10px 15px;
+  }
+  .quiz-header .quiz-title,
+  .quiz-content .question-text {
+    font-size: 1.2rem;
+  }
+  .result-container {
+    padding: 20px 15px;
+  }
+  .result-container .result-title {
+    font-size: 1.5rem;
+  }
+  .result-container .result-message {
+    font-size: 1rem;
+  }
+}
